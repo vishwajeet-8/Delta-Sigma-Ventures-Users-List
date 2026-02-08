@@ -26,73 +26,82 @@ function App() {
   const [isEdit, setIsEdit] = useState(false);
   const [users, setUsers] = useState([]);
 
-  //ADD AND UPDATE USER
+  // -------- Fetch Users ----------
+  const fetchUsers = async () => {
+    try {
+      const res = await getAllUser();
+      setUsers(res);
+    } catch (err) {
+      toast.error("Failed to load users");
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  // -------- Validation ----------
+  function validate() {
+    let errObj = {};
+
+    formFields.forEach((field) => {
+      const value = formData[field.name];
+
+      if (!value && field.required) {
+        errObj[field.name] = `${field.label} is required`;
+        return;
+      }
+
+      if (field.pattern && value && !field.pattern.test(value)) {
+        errObj[field.name] = field.message;
+      }
+    });
+
+    setErrors(errObj);
+    return Object.keys(errObj).length === 0;
+  }
+
+  // -------- Submit ----------
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validate()) return;
+
     try {
-      if (!validate()) return;
       if (editId) {
         await updateUser(editId, formData);
+        toast.success("User updated");
         setEditId("");
         setIsEdit(false);
-        toast.success("User updated");
       } else {
         await addUser(formData);
         toast.success("User added");
       }
+
+      setFormData(obj);
+      await fetchUsers();
     } catch (err) {
       toast.error(err.message);
     }
-    setFormData({ ...obj });
   };
 
-  //SET EDIT ID FOR UPDATE
+  // -------- Edit ----------
   function handleUpdate(user) {
     setIsEdit(true);
     setFormData(user);
     setEditId(user.id);
   }
 
-  //DELETE USER
+  // -------- Delete ----------
   async function handleDelete(id) {
     try {
       await deleteUser(id);
       toast.success("User deleted");
+      await fetchUsers();
     } catch (err) {
       toast.error(err.message);
     }
   }
-
-  //VALIDATION
-  function validate() {
-    let errObj = {};
-
-    formFields.forEach(function (field) {
-      const value = formData[field.name];
-
-      //IF EMPTY VALUES
-      if (!value && field.required) {
-        errObj[field.name] = `${field.form} is required`;
-        return;
-      }
-
-      //IF NOT MATCH PATTERN
-      if (field.pattern && value && !field.pattern.test(value)) {
-        errObj[field.name] = field.message;
-      }
-    });
-    setErrors(errObj);
-    return Object.keys(errObj).length === 0;
-  }
-
-  // LIST USERS WHEN UPDATE ADD AND DELETE LIKE IN REAL TIME
-  useEffect(() => {
-    async function fetchUser() {
-      const res = await getAllUser();
-      setUsers(res);
-    }
-    fetchUser();
-  }, [handleSubmit, handleDelete]);
 
   return (
     <>

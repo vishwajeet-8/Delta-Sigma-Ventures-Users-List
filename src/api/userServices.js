@@ -52,7 +52,7 @@ export function getAllUser() {
 
 //PRODUCTION
 export function updateUser(id, formData) {
-  return request(`url/${id}`, {
+  return request(`${url}/${id}`, {
     method: "PUT",
     body: JSON.stringify(formData),
   });
@@ -60,7 +60,7 @@ export function updateUser(id, formData) {
 
 //DELETE USERS MOCK API
 export function deleteUser(id) {
-  return request(`url/${id}`, {
+  return request(`${url}/${id}`, {
     method: "DELETE",
   });
 }
