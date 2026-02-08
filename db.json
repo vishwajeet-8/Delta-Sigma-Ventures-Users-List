@@ -1,0 +1,25 @@
+{
+  "users": [
+    {
+      "id": "35696a7b-7ac7-44f9-a000-94609d3c3cc7",
+      "firstName": "lucky",
+      "lastName": "Rout",
+      "phone": "9654417677",
+      "email": "vishwajeetrout8@gmail.com"
+    },
+    {
+      "id": "b46790de-b4c0-44c7-9e47-c06724049afa",
+      "firstName": "om",
+      "lastName": "Rout",
+      "phone": "9654417677",
+      "email": "om8@gmail.com"
+    },
+    {
+      "id": "e97c09da-d153-49e6-89e8-8fe750b6dee8",
+      "firstName": "vishwajeet",
+      "lastName": "Rout",
+      "phone": "9654417677",
+      "email": "vishwajeetrout8@gmail.com"
+    }
+  ]
+}
