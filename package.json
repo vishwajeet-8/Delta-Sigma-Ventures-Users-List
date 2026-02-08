@@ -4,19 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "json-server --watch db.json --host 0.0.0.0 --port $PORT --cors",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.18",
-    "json-server": "^1.0.0-beta.5",
-    "lucide-react": "^0.563.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "react-toastify": "^11.0.5",
-    "tailwindcss": "^4.1.18"
+    "json-server": "^1.0.0-beta.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
